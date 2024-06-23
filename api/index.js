@@ -1,7 +1,5 @@
+const baseURL = process.env.BACKEND_URL;
 let api;
-
-// const baseURL = "https://acm-3uso.onrender.com";
-const baseURL = "http://localhost:3000"
 export default api = {
   login: `${baseURL}/api/users/login`,
   signup: `${baseURL}/api/users/signup`,
