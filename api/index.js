@@ -1,4 +1,4 @@
-const baseURL = process.env.BACKEND_URL;
+const baseURL = "https://typeracer-backend.onrender.com/";
 let api;
 export default api = {
   login: `${baseURL}/api/users/login`,
