@@ -1,4 +1,4 @@
-const baseURL = "http://18.61.83.114";
+const baseURL = "https://infotrek24.in";
 let api;
 export default api = {
   login: `${baseURL}/api/users/login`,

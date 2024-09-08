@@ -19,68 +19,85 @@
   </div>
   <v-row style="margin-top: 2rem">
     <v-col style="max-width: 55rem;margin: auto 0 auto auto;">
-      <v-card variant="outlined">
-        <v-card-item class="unselectable">
-          <typing v-for="chars in games.paragraph">{{ chars }}</typing>
-        </v-card-item>
-      </v-card>
-      <v-textarea
-        variant="outlined"
-        v-model="paragraph"
-        style="margin-top: 1rem"
-        @input="check"
-        id="textarea1"
-        :disabled="participated"
-      >
-      </v-textarea>
 
     </v-col>
     <v-col cols="3">
-      <v-chip class="unselectable" prepend-icon="mdi-timer-outline" variant="outlined"
-              size="default"
-              density="comfortable"
-              style="margin-left: 30%">
-        {{ timeTaken }} seconds
-      </v-chip>
-      <v-container
-        v-if="(timeTaken>0 && timer===false)|| participated"
-        class="leaderboard"
-      >
-        <div style="text-align: center;">
-          <h3>
-            Leaderboard
-          </h3>
-        </div>
-        <v-table>
-          <thead>
-          <tr>
-            <th class="text-left">
-              Position
-            </th>
-            <th class="text-left">
-              Name
-            </th>
-            <th class="text-left">
-              Time Taken(sec)
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr
-            v-for="(perf,i) in leaderboard"
-            :key="i"
-          >
-            <td>{{ i + 1 }}</td>
-            <td>{{ perf.name }}</td>
-            <td>{{ perf.time_taken }}</td>
-          </tr>
-          </tbody>
-        </v-table>
 
-      </v-container>
     </v-col>
   </v-row>
+  <v-row no-gutters>
+    <v-col cols="8">
+      <v-sheet class="pa-4 ma-4">
+        <v-card variant="outlined">
+          <v-card-item class="unselectable">
+            <typing v-for="chars in games.paragraph">{{ chars }}</typing>
+          </v-card-item>
+        </v-card>
+        <v-textarea
+          variant="outlined"
+          v-model="paragraph"
+          style="margin-top: 1rem"
+          @input="check"
+          id="textarea1"
+          :disabled="participated"
+        >
+        </v-textarea>
+      </v-sheet>
+    </v-col>
 
+    <v-col cols="4">
+      <v-sheet class="pa-4 ma-4">
+        <v-chip class="unselectable" prepend-icon="mdi-timer-outline" variant="outlined"
+                size="default"
+                density="comfortable"
+                v-if="!participated"
+                style="margin-left: 50%;translate: -50%">
+          {{ timeTaken }} seconds
+        </v-chip>
+        <v-container
+          v-if="(timeTaken>0 && timer===false)|| participated"
+          class="leaderboard"
+        >
+          <div style="text-align: center;">
+            <h3>
+              Leaderboard
+            </h3>
+          </div>
+          <v-table>
+            <thead>
+            <tr>
+              <th class="text-left">
+                Position
+              </th>
+              <th class="text-left">
+                Name
+              </th>
+              <th class="text-left">
+                Time Taken(sec)
+              </th>
+              <th class="text-left">
+                WPM
+              </th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr
+              v-for="(perf,i) in leaderboard"
+              :key="i"
+            >
+              <td>{{ i + 1 }}</td>
+              <td>{{ perf.name }}</td>
+              <td>{{ perf.time_taken }}</td>
+              <td>{{ ((paragraph_len * 60) / (5 * perf.time_taken)).toFixed(1) }}</td>
+            </tr>
+            </tbody>
+          </v-table>
+
+        </v-container>
+      </v-sheet>
+    </v-col>
+  </v-row>
 </template>
 <script setup>
 
@@ -97,6 +114,7 @@ const id = route.params.id;
 
 let games = ref({});
 let paragraph = ref([]);
+let paragraph_len = ref(0);
 let timer = ref(false);
 let timeTaken = ref(0);
 let leaderboard = ref();
@@ -139,6 +157,7 @@ async function getGame() {
       }
     });
     games.value = response.data;
+    paragraph_len.value = response.data.paragraph.length;
   } catch (e) {
     console.log(e);
   }

@@ -2,7 +2,7 @@
   <v-app id="inspire" style="height: 5rem;width: 100%">
     <v-app-bar elevation="3">
       <router-link to="/" class="text-decoration-none"
-                   style="color:indigo; margin-left: 1rem;font-size: 2rem; font-weight:300;font-family: 'Roboto Condensed Medium','sans-serif'">
+                   style="color:indigo; margin-left: 1rem;font-size: 2rem; font-weight:500;font-family:'Inter',sans-serif">
         Typeracer
       </router-link>
       <v-spacer></v-spacer>
