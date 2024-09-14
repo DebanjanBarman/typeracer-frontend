@@ -145,7 +145,7 @@ const passwordRules = [
       return true
     } else {
       // validPassword.value = false;
-      return "Password must contain Uppercase,Lowercase,Number,Special Character"
+      return "Password must contain Uppercase,Lowercase,Number,Special Character(Only use @$!%*?&)"
     }
   }
 ];
