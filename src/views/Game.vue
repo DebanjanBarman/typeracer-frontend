@@ -159,7 +159,12 @@ async function getGame() {
     games.value = response.data;
     paragraph_len.value = response.data.paragraph.length;
   } catch (e) {
-    console.log(e);
+    console.log("HELLO THERE");
+    console.log(e.response.status);
+    if (e.response.status === 401) {
+      localStorage.clear();
+      await router.push("/login")
+    }
   }
 }
 
