@@ -1,7 +1,9 @@
 <template>
   <SystemBar/>
-  <v-container>
-    <v-card rounded variant="outlined" max-width="500">
+  <v-container
+    style="border:2px solid #fdf;border-radius: 1rem ; width: 50rem"
+  >
+    <v-card variant="flat">
       <v-card-title>Name: {{ name }}</v-card-title>
       <v-chip
         v-if="admin==='admin'"

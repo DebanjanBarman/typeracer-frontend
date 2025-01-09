@@ -46,6 +46,9 @@
               Name
             </th>
             <th class="text-left">
+              Email
+            </th>
+            <th class="text-left">
               Time Taken(sec)
             </th>
             <th class="text-left">
@@ -61,6 +64,7 @@
           >
             <td>{{ i + 1 }}</td>
             <td>{{ perf.name }}</td>
+            <td>{{ perf.email }}</td>
             <td>{{ perf.time_taken }}</td>
             <td>{{ ((paragraph_len * 60) / (5 * perf.time_taken)).toFixed(1) }}</td>
           </tr>
@@ -75,15 +79,15 @@
   <v-row no-gutters v-if="!participated && !typing_complete">
     <v-col cols="8">
       <v-sheet class="pa-4 ma-4">
-        <v-card variant="outlined">
+        <v-card variant="flat" style="  border:2px solid #fdf;  border-radius: 1rem ;">
           <v-card-item class="unselectable">
             <typing v-for="chars in games.paragraph">{{ chars }}</typing>
           </v-card-item>
         </v-card>
         <v-textarea
-          variant="outlined"
+          variant="plain"
           v-model="paragraph"
-          style="margin-top: 1rem"
+          style="border:2px solid #fdf;margin-top: 1rem;border-radius: 1rem ;"
           @input="check"
           id="textarea1"
         >
@@ -94,10 +98,9 @@
     <v-col cols="4">
       <v-sheet class="pa-4 ma-4">
         <v-chip class="unselectable" prepend-icon="mdi-timer-outline" variant="outlined"
-                size="default"
-                density="comfortable"
+                size="large"
                 v-if="!participated"
-                style="margin-left: 50%;translate: -50%">
+                style="margin-left: 50%;translate: -50%;border-radius: 1rem ;border:2px solid #fdf;">
           {{ timeTaken }} seconds
         </v-chip>
       </v-sheet>
@@ -280,7 +283,7 @@ onMounted(() => {
   background-color: rgba(217, 216, 216, 0);
   margin-top: 1rem;
   margin-right: 1rem;
-  border-radius: 7px;
-  outline: 1px solid black;
+  border: 2px solid #fdf;
+  border-radius: 1rem;
 }
 </style>

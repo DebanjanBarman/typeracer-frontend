@@ -27,6 +27,19 @@
     </v-row>
   </v-container>
 
+  <v-container
+    v-if="gameArray.length===0"
+    style="border:2px solid #fdf;border-radius: 1rem ; width: 100%; height: 70vh;">
+    <v-row>
+      <v-col cols="12">
+        <v-card-title
+          style="margin-top: 18%;margin-left: 50%;transform: translateX(-50%);width: 300px">
+          Games will appear here
+        </v-card-title>
+      </v-col>
+    </v-row>
+  </v-container>
+
 </template>
 
 <script setup>
