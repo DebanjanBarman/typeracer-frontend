@@ -87,7 +87,7 @@
         <v-textarea
           variant="plain"
           v-model="paragraph"
-          style="border:2px solid #fdf;margin-top: 1rem;border-radius: 1rem ;"
+          style="border:2px solid #fdf;margin-top: 1rem;border-radius: 1rem ; padding-left: 1rem;padding-right: 1rem"
           @input="check"
           id="textarea1"
         >
