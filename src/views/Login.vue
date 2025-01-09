@@ -50,12 +50,12 @@
         :type="showPassword ? 'text' : 'password'"
         @click:append-inner="togglePasswordVisibility"
       ></v-text-field>
-      <router-link
-        to="/forgot-password"
-        style="text-decoration: none;color: #3178ec"
-      >
-        <b> Forgot Password? </b>
-      </router-link>
+<!--      <router-link-->
+<!--        to="/forgot-password"-->
+<!--        style="text-decoration: none;color: #3178ec"-->
+<!--      >-->
+<!--        <b> Forgot Password? </b>-->
+<!--      </router-link>-->
       <v-btn
         type="submit"
         block="true"
