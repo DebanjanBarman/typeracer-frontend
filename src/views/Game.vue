@@ -17,15 +17,62 @@
       </template>
     </v-snackbar>
   </div>
-  <v-row style="margin-top: 2rem">
-    <v-col style="max-width: 55rem;margin: auto 0 auto auto;">
+  <!--  <v-row style="margin-top: 2rem">-->
+  <!--    <v-col style="max-width: 55rem;margin: auto 0 auto auto;">-->
 
-    </v-col>
-    <v-col cols="3">
+  <!--    </v-col>-->
+  <!--    <v-col cols="3">-->
+
+  <!--    </v-col>-->
+  <!--  </v-row>-->
+  <v-row>
+    <v-col style="max-width: 55rem;margin: auto;">
+      <v-container
+        v-if="(timeTaken>0 && timer===false)|| participated"
+        class="leaderboard"
+      >
+        <div style="text-align: center;">
+          <h3>
+            Leaderboard
+          </h3>
+        </div>
+        <v-table>
+          <thead>
+          <tr>
+            <th class="text-left">
+              Position
+            </th>
+            <th class="text-left">
+              Name
+            </th>
+            <th class="text-left">
+              Time Taken(sec)
+            </th>
+            <th class="text-left">
+              WPM
+            </th>
+
+          </tr>
+          </thead>
+          <tbody>
+          <tr
+            v-for="(perf,i) in leaderboard"
+            :key="i"
+          >
+            <td>{{ i + 1 }}</td>
+            <td>{{ perf.name }}</td>
+            <td>{{ perf.time_taken }}</td>
+            <td>{{ ((paragraph_len * 60) / (5 * perf.time_taken)).toFixed(1) }}</td>
+          </tr>
+          </tbody>
+        </v-table>
+
+      </v-container>
 
     </v-col>
   </v-row>
-  <v-row no-gutters>
+
+  <v-row no-gutters v-if="!participated && !typing_complete">
     <v-col cols="8">
       <v-sheet class="pa-4 ma-4">
         <v-card variant="outlined">
@@ -39,7 +86,6 @@
           style="margin-top: 1rem"
           @input="check"
           id="textarea1"
-          :disabled="participated"
         >
         </v-textarea>
       </v-sheet>
@@ -54,47 +100,6 @@
                 style="margin-left: 50%;translate: -50%">
           {{ timeTaken }} seconds
         </v-chip>
-        <v-container
-          v-if="(timeTaken>0 && timer===false)|| participated"
-          class="leaderboard"
-        >
-          <div style="text-align: center;">
-            <h3>
-              Leaderboard
-            </h3>
-          </div>
-          <v-table>
-            <thead>
-            <tr>
-              <th class="text-left">
-                Position
-              </th>
-              <th class="text-left">
-                Name
-              </th>
-              <th class="text-left">
-                Time Taken(sec)
-              </th>
-              <th class="text-left">
-                WPM
-              </th>
-
-            </tr>
-            </thead>
-            <tbody>
-            <tr
-              v-for="(perf,i) in leaderboard"
-              :key="i"
-            >
-              <td>{{ i + 1 }}</td>
-              <td>{{ perf.name }}</td>
-              <td>{{ perf.time_taken }}</td>
-              <td>{{ ((paragraph_len * 60) / (5 * perf.time_taken)).toFixed(1) }}</td>
-            </tr>
-            </tbody>
-          </v-table>
-
-        </v-container>
       </v-sheet>
     </v-col>
   </v-row>
@@ -121,6 +126,7 @@ let leaderboard = ref();
 let participated = ref();
 let notification = ref(false);
 let notificationText = ref("");
+let typing_complete = ref(false);
 
 setInterval(async () => {
   if (timer.value === true) {
@@ -220,10 +226,13 @@ async function check() {
   })
   if (correct) {
     timer.value = false;
+    typing_complete.value = true
     document.getElementById("textarea1").disabled = true;
     try {
       await saveResult();
       await getLeaderboard();
+      notification.value = true;
+      notificationText.value = "You've Finished the game"
     } catch (e) {
       console.log(e);
     }
