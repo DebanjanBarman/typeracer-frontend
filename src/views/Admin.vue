@@ -51,7 +51,11 @@ import apiRoute from '../../api/index'
 let gameArray = ref([])
 
 async function getProducts() {
-  const response = await axios.get(apiRoute.gamesURL);
+  const response = await axios.get(apiRoute.myGamesURL, {
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("auth_token")}`
+    }
+  });
   gameArray.value = response.data;
 }
 

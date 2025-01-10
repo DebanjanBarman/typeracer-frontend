@@ -78,7 +78,7 @@
         variant="outlined"
         v-model="games.start_time"
         :rules="rules"
-        label="Starting Time"
+        label="Starting Time: in the given format (2025-17-13T13:13:45.00Z)"
       >
       </v-text-field>
       <v-text-field
@@ -88,6 +88,14 @@
         label="Organizer"
       >
       </v-text-field>
+      <v-autocomplete
+        :items="booleans"
+        v-model="games.visible"
+        variant="outlined"
+        density="compact"
+        label="Visible"
+      ></v-autocomplete>
+
       <v-textarea
         variant="outlined"
         v-model="games.paragraph"
@@ -114,12 +122,13 @@ let saving = ref(false);
 let editing = ref(false);
 let deleting = ref(false);
 let dialog = ref(false);
+const booleans = [true, false]
 
 const id = route.params.id;
 
 async function getGame() {
   try {
-    const response = await axios.get(`${apiRoute.gamesURL}/${id}`, {
+    const response = await axios.get(`${apiRoute.myGameURL}/${id}`, {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem("auth_token")}`
       }
@@ -138,7 +147,8 @@ async function updateGame() {
     name: games.value.name,
     start_time: games.value.start_time,
     paragraph: games.value.paragraph,
-    organizer: games.value.organizer
+    organizer: games.value.organizer,
+    visible: games.value.visible
   };
   console.log(updateData)
   try {

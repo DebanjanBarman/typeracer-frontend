@@ -47,6 +47,18 @@ import SystemBar from "@/components/AppBar.vue";
 import {onMounted, ref} from "vue";
 import axios from 'axios';
 import apiRoute from '../../api/index'
+import {io} from "socket.io-client";
+
+// const socket = io(apiRoute.baseURL);
+
+// socket.on("connect", () => {
+//   console.log(socket.id);
+// });
+// socket.on("connect_error", () => {
+//   // revert to classic upgrade
+//   socket.io.opts.transports = ["polling", "websocket"];
+// });
+
 
 let gameArray = ref([])
 
@@ -58,5 +70,10 @@ async function getProducts() {
 onMounted(async () => {
   await getProducts();
 })
+
+// socket.on("game_updated", async (arg) => {
+//   await getProducts();
+// });
+
 
 </script>
