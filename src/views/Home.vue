@@ -49,15 +49,15 @@ import axios from 'axios';
 import apiRoute from '../../api/index'
 import {io} from "socket.io-client";
 
-// const socket = io(apiRoute.baseURL);
+const socket = io(apiRoute.baseURL);
 
-// socket.on("connect", () => {
-//   console.log(socket.id);
-// });
-// socket.on("connect_error", () => {
-//   // revert to classic upgrade
-//   socket.io.opts.transports = ["polling", "websocket"];
-// });
+socket.on("connect", () => {
+  console.log(socket.id);
+});
+socket.on("connect_error", () => {
+  // revert to classic upgrade
+  socket.io.opts.transports = ["polling", "websocket"];
+});
 
 
 let gameArray = ref([])
@@ -71,9 +71,13 @@ onMounted(async () => {
   await getProducts();
 })
 
-// socket.on("game_updated", async (arg) => {
-//   await getProducts();
-// });
+socket.on("updated", async (arg) => {
+  await getProducts();
+});
+socket.on("*", async (arg) => {
+  console.log(arg)
+});
 
+// await broadcastMessage("updated")
 
 </script>

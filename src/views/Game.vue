@@ -114,6 +114,17 @@ import {useRoute, useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import apiRoute from "../../api";
+import {io} from "socket.io-client";
+
+const socket = io(apiRoute.baseURL);
+
+socket.on("connect", () => {
+  console.log(socket.id);
+});
+socket.on("connect_error", () => {
+  // revert to classic upgrade
+  socket.io.opts.transports = ["polling", "websocket"];
+});
 
 const route = useRoute()
 const router = useRouter()
@@ -248,6 +259,12 @@ onMounted(() => {
   getLeaderboard();
 })
 
+socket.on("updated", async (arg) => {
+  await getLeaderboard();
+});
+socket.on("*", async (arg) => {
+  console.log(arg)
+});
 </script>
 
 <style scoped>
