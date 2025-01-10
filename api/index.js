@@ -1,5 +1,5 @@
-// const baseURL = "https://typeracer-backend.infotrek24.tech";
-const baseURL = "http://localhost:3000";
+const baseURL = "https://typeracer-backend.infotrek24.tech";
+// const baseURL = "http://localhost:3000";
 let api;
 export default api = {
   baseURL: baseURL,
