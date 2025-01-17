@@ -69,10 +69,10 @@
         Sign In
       </v-btn>
 
-      <p class="mb-4"> Don't have an account yet?</p>
-      <router-link to="/signup" style="text-decoration: none;color: #3178ec">
-        <b>Sign up</b>
-      </router-link>
+<!--      <p class="mb-4"> Don't have an account yet?</p>-->
+<!--      <router-link to="/signup" style="text-decoration: none;color: #3178ec">-->
+<!--        <b>Sign up</b>-->
+<!--      </router-link>-->
     </v-form>
 
   </v-sheet>
