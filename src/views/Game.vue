@@ -116,6 +116,8 @@
         <v-row style="margin-top: 1rem;padding: 2rem">
           1. You have to maintain 100% accuracy, otherwise the test will not submit.
           <br>
+          2. The space separating each word is a space not a new_line "\n" character.
+          <br>
         </v-row>
       </v-row>
 
