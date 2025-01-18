@@ -215,12 +215,19 @@ async function saveResult() {
   }
 }
 
-async function check() {
+async function check(e) {
   timer.value = true;
   let correct = true;
   const arrayQuote = document.querySelectorAll("typing");
   const arrayValue = paragraph.value.split('');
 
+  // console.log(e)
+  // if (e.inputType === "insertLineBreak") {
+  //   console.log(paragraph.value.split(''))
+  //   const usertext = paragraph.value.split('');
+  //   paragraph.value = usertext.pop();
+  //   console.log(paragraph.value)
+  // }
 
   arrayQuote.forEach((charSpan, index) => {
     const character = arrayValue[index];
