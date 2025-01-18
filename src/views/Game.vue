@@ -91,11 +91,15 @@
           @input="check"
           id="textarea1"
         >
+          <!--          @keydown="disable_control"-->
+
         </v-textarea>
       </v-sheet>
     </v-col>
 
     <v-col cols="4">
+      <!--      <v-row>-->
+
       <v-sheet class="pa-4 ma-4">
         <v-chip class="unselectable" prepend-icon="mdi-timer-outline" variant="outlined"
                 size="large"
@@ -104,6 +108,17 @@
           {{ timeTaken }} seconds
         </v-chip>
       </v-sheet>
+      <!--      </v-row>-->
+      <v-row>
+        <v-card-title style="margin-left: 42%">
+          Note
+        </v-card-title>
+        <v-row style="margin-top: 1rem;padding: 2rem">
+          1. You have to maintain 100% accuracy, otherwise the test will not submit.
+          <br>
+        </v-row>
+      </v-row>
+
     </v-col>
   </v-row>
 </template>
@@ -132,7 +147,7 @@ const router = useRouter()
 const id = route.params.id;
 
 let games = ref({});
-let paragraph = ref([]);
+let paragraph = ref("");
 let paragraph_len = ref(0);
 let timer = ref(false);
 let timeTaken = ref(0);
@@ -215,6 +230,10 @@ async function saveResult() {
   }
 }
 
+async function disable_control(e) {
+  console.log(e)
+}
+
 async function check(e) {
   timer.value = true;
   let correct = true;
@@ -222,12 +241,21 @@ async function check(e) {
   const arrayValue = paragraph.value.split('');
 
   // console.log(e)
-  // if (e.inputType === "insertLineBreak") {
-  //   console.log(paragraph.value.split(''))
-  //   const usertext = paragraph.value.split('');
-  //   paragraph.value = usertext.pop();
-  //   console.log(paragraph.value)
-  // }
+  if (e.inputType === "insertLineBreak") {
+    // let len = paragraph.value.length;
+    //
+    // // if (paragraph.value[len - 1] === '\n') {
+    // let usertext = paragraph.value;
+    // usertext.substring(0, usertext.length - 1);
+    // // console.log(str);    //   console.log(usertext)
+    // //   usertext.;
+    // paragraph.value = usertext;
+    //
+    // // }
+    // console.log(paragraph.value[len - 1]);
+    // // paragraph.value.pop();
+    // await this.$nextTick();
+  }
 
   arrayQuote.forEach((charSpan, index) => {
     const character = arrayValue[index];
