@@ -3,7 +3,7 @@
     <v-app-bar elevation="3">
       <router-link to="/" class="text-decoration-none"
                    style="color:indigo; margin-left: 1rem;font-size: 2rem; font-weight:500;font-family:'Inter',sans-serif">
-        Lightning Fingers
+        Type Racer
       </router-link>
       <v-spacer></v-spacer>
       <router-link to="/login" v-if="!loggedIn">
